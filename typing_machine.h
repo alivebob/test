@@ -21,6 +21,8 @@ private:
 	Node *m_home;
 	Node *m_end;
 	Node *m_cur;
+	int m_len;
+	std::string m_str;
 };
 
 #endif  // TYPING_MACHINE_H_

@@ -3,7 +3,8 @@
 #include "typing_machine.h"
 
 TypingMachine::TypingMachine() {
-	m_home = m_end = m_cur = new Node('\0');;
+	m_home = m_end = m_cur = new Node('\0');
+	m_len = 0;
 }
 
 void TypingMachine::HomeKey() {
@@ -33,7 +34,11 @@ bool TypingMachine::TypeKey(char key) {
 	if (!m_cur)
 		return false; // ASSERT
 
+	if (m_len >= 100)
+		return false;
+
 	p = m_cur->InsertPreviousNode(key);
+	m_len++;
 
 	if (m_home == m_cur)
 		m_home = p;
@@ -42,24 +47,33 @@ bool TypingMachine::TypeKey(char key) {
 }
 
 bool TypingMachine::EraseKey() {
+	int ret;
 	if (!m_cur)
 		return false; // ASSERT
 
-	return m_cur->ErasePreviousNode();
+	if (m_cur->GetPreviousNode() == m_home)
+		m_home = m_cur;
+
+	ret = m_cur->ErasePreviousNode();
+
+	if (ret) m_len--;
+
+	return ret;
 }
 
 std::string TypingMachine::Print(char separator) {
-	//std::string str;
-	char str[101];
 	Node *p = m_home;
-	int i = 0;
 
+	m_str.clear();
 	while (p) {
+		char c;
 		if (p == m_cur && separator != 0)
-			str[i++] = separator;
-		str[i++] = p->GetData();
+			m_str.push_back(separator);
+		c = p->GetData();
+		if (c == '\0') break;
+		m_str.push_back(c);
 		p = p->GetNextNode();
 	}
 
-	return std::string(str);
+	return m_str;
 }
