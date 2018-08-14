@@ -2,22 +2,20 @@
 
 #include "node.h"
 
-Node::Node(char data) {
-	m_prev = m_next = nullptr;
-	m_data = data;
-  return;
+Node::Node(char data)
+	:m_prev(nullptr), m_next(nullptr), m_data(data) {
 }
 
 char Node::GetData() {
-  return m_data;
+	return m_data;
 }
 
 Node* Node::GetPreviousNode() {
-  return m_prev;
+	return m_prev;
 }
 
 Node* Node::GetNextNode() {
-  return m_next;
+	return m_next;
 }
 
 Node* Node::InsertPreviousNode(char data) {
