@@ -2,9 +2,9 @@
 
 #include "typing_machine.h"
 
-TypingMachine::TypingMachine() {
+TypingMachine::TypingMachine()
+	: m_len(0) {
 	m_home = m_end = m_cur = new Node('\0');
-	m_len = 0;
 }
 
 void TypingMachine::HomeKey() {
@@ -47,7 +47,8 @@ bool TypingMachine::TypeKey(char key) {
 }
 
 bool TypingMachine::EraseKey() {
-	int ret;
+	bool ret;
+
 	if (!m_cur)
 		return false; // ASSERT
 
