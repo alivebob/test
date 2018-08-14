@@ -3,7 +3,8 @@
 #include "node.h"
 
 Node::Node(char data)
-	:m_prev(nullptr), m_next(nullptr), m_data(data) {
+	: m_data(data) {
+	m_prev = m_next = nullptr;
 }
 
 char Node::GetData() {
